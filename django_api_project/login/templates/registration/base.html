@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+{% load django_bootstrap5 %}
+<html>
+<head>
+    <title>{% block title %}Your Site{% endblock %}</title>
+    {% bootstrap_css %}
+</head>
+<body>
+    {% block content %}{% endblock %}
+    {% bootstrap_javascript %}
+</body>
+</html>

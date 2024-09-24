@@ -1,0 +1,9 @@
+site_name: My Docs
+
+
+
+nav:
+  - Overview: index.md
+  - Developer guide:
+      - Characters: developer/characters.md
+      - Favorites: developer/favorites.md

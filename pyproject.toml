@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "django-api-project"
+version = "0.1.0"
+description = ""
+authors = ["Kuba <kubaa.rutkowski123@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11.3"
+django = "^5.1.1"
+psycopg2-binary = "^2.9.9"
+requests = "^2.32.3"
+django-bootstrap5 = "^24.3"
+mkdocs = "^1.6.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

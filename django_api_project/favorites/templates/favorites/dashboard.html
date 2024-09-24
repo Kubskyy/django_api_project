@@ -1,0 +1,59 @@
+{% extends 'registration/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="#">Rick and Morty</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Home</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}">My Dashboard</a>
+                </li>
+                {% endif %}
+            </ul>
+            <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <span class="nav-item nav-link">Welcome, {{ user.username }}!</span>
+                    <form class="nav-item" action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link nav-link">Logout</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h1 class="text-center mb-4">My Favorite Characters</h1>
+    <div class="row">
+            {% for favorite in favorites %}
+                <div class="col-md-4 col-lg-3 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{{ favorite.image_url }}" class="card-img-top img-fluid rounded" alt="{{ favorite.name }}">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ favorite.name }}</h5>
+                            <div class="mt-auto">
+                                <form action="{% url 'toggle_favorite' favorite.character_id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger w-100">Remove from Favorites</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p class="text-center">You haven't added any favorite characters yet.</p>
+                </div>
+            {% endfor %}
+    </div>
+</div>
+{% endblock %}
